@@ -4,10 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nexus</title>
-<meta name="description" content="Nexus. An operating system for becoming. Mandates, habits, and a daily alignment score in one quiet instrument for iPhone.">
+<meta name="description" content="Nexus asks who you are becoming. You answer out loud. The system builds itself around your answer. For iPhone.">
 <meta property="og:title" content="Nexus">
-<meta property="og:description" content="Become the you that already exists.">
+<meta property="og:description" content="Who are you becoming? Say it out loud. Nexus builds itself around your answer.">
 <meta property="og:type" content="website">
+<meta property="og:image" content="https://jadenhuff6-sudo.github.io/nexus-site/still_question.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@1,300&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -34,12 +35,7 @@
     line-height: 22px;
     overflow-x: hidden;
   }
-  #stars {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-  }
+  #stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
   .star {
     position: absolute;
     background: #FFFFFF;
@@ -51,73 +47,57 @@
     0%, 100% { opacity: 0.45; }
     50% { opacity: var(--peak); }
   }
-  @media (prefers-reduced-motion: reduce) {
-    .star { animation: none; opacity: 0.55; }
-    .rise { animation: none; opacity: 1; transform: none; }
-  }
-  main {
-    position: relative;
-    z-index: 1;
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-  .rise {
+  main { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+  /* scroll reveal */
+  .reveal {
     opacity: 0;
     transform: translateY(8px);
-    animation: rise 350ms cubic-bezier(0.2, 0, 0, 1) forwards;
+    transition: opacity 350ms cubic-bezier(0.2, 0, 0, 1), transform 350ms cubic-bezier(0.2, 0, 0, 1);
   }
-  @keyframes rise {
-    to { opacity: 1; transform: translateY(0); }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .star { animation: none; opacity: 0.55; }
+    .reveal { opacity: 1; transform: none; transition: none; }
   }
+
   /* ---------- hero ---------- */
   .hero {
-    min-height: 88vh;
+    min-height: 92vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 96px 0 64px;
-  }
-  .ring {
-    width: 120px;
-    height: 120px;
-    margin-bottom: 48px;
-    animation-delay: 150ms;
-    filter: drop-shadow(0 0 32px rgba(229, 186, 110, 0.22));
+    padding: 96px 0 48px;
   }
   .wordmark {
-    font-family: 'Inter', sans-serif;
     font-size: 13px;
     font-weight: 600;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--text-muted);
-    margin-bottom: 20px;
-    animation-delay: 350ms;
+    margin-bottom: 24px;
   }
   h1 {
     font-family: 'Fraunces', serif;
     font-style: italic;
     font-weight: 300;
-    font-size: clamp(30px, 6vw, 42px);
-    line-height: 1.25;
+    font-size: clamp(34px, 7vw, 52px);
+    line-height: 1.2;
     letter-spacing: 0.01em;
-    max-width: 480px;
-    animation-delay: 550ms;
+    max-width: 520px;
   }
-  .hero p {
+  .hero .sub {
     color: var(--text-secondary);
     font-size: 17px;
     line-height: 26px;
-    max-width: 420px;
+    max-width: 400px;
     margin-top: 28px;
-    animation-delay: 750ms;
   }
   .cta {
     display: inline-block;
-    margin-top: 48px;
+    margin-top: 44px;
     padding: 18px 36px;
     background: var(--text);
     color: var(--void);
@@ -128,45 +108,96 @@
     text-decoration: none;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.14);
     transition: transform 250ms cubic-bezier(0.2, 0, 0, 1), background 250ms;
-    animation-delay: 950ms;
   }
   .cta:hover { background: rgba(255, 255, 255, 0.92); }
   .cta:active { transform: scale(0.97); }
-  /* ---------- sections ---------- */
-  .section { padding: 48px 0; }
+
+  /* ---------- film ---------- */
+  .film { display: flex; justify-content: center; padding: 24px 0 48px; }
+  .film video {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    aspect-ratio: 720 / 1560;
+    border-radius: 24px;
+    border: 1px solid var(--edge);
+    background: var(--void-deep);
+    box-shadow: 0 8px 36px rgba(229, 186, 110, 0.28);
+  }
+
+  /* ---------- narrative rows ---------- */
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 56px;
+    padding: 72px 0;
+  }
+  .row:nth-child(even) { flex-direction: row-reverse; }
+  .row-media { flex: 0 0 280px; }
+  .row-media img {
+    display: block;
+    width: 100%;
+    border-radius: 20px;
+    border: 1px solid var(--edge);
+    box-shadow: 0 8px 36px rgba(229, 186, 110, 0.28);
+  }
+  .row-text { flex: 1; max-width: 420px; }
   .label {
     font-size: 13px;
     font-weight: 600;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--text-muted);
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
-  .card {
-    background: var(--surface);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border: 1px solid var(--edge);
-    border-radius: 16px;
-    padding: 28px;
-    box-shadow: 0 8px 36px rgba(229, 186, 110, 0.28);
-  }
-  .card + .card { margin-top: 24px; }
-  .card h2 {
-    font-size: 18px;
+  .row-text h2 {
+    font-size: 28px;
+    line-height: 34px;
     font-weight: 600;
-    margin-bottom: 10px;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
   }
-  .card p {
+  .row-text p {
     color: var(--text-secondary);
-    font-size: 15px;
-    line-height: 23px;
+    font-size: 17px;
+    line-height: 26px;
   }
-  /* ---------- pricing ---------- */
-  .pricing {
+  .row-text .spoken {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 19px;
+    color: var(--text);
+  }
+  @media (max-width: 720px) {
+    .row, .row:nth-child(even) { flex-direction: column; gap: 32px; padding: 56px 0; text-align: center; }
+    .row-media { flex: none; width: 240px; }
+    .row-text { max-width: 420px; }
+  }
+
+  /* ---------- proof ---------- */
+  .proof {
     text-align: center;
-    padding: 64px 0 32px;
+    padding: 96px 0;
+    max-width: 560px;
+    margin: 0 auto;
   }
+  .proof .days {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 500;
+    font-size: 88px;
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+  .proof p {
+    color: var(--text-secondary);
+    font-size: 17px;
+    line-height: 26px;
+    margin-top: 20px;
+  }
+
+  /* ---------- pricing ---------- */
+  .pricing { text-align: center; padding: 24px 0 48px; }
   .price {
     font-family: 'IBM Plex Mono', monospace;
     font-weight: 500;
@@ -179,17 +210,30 @@
     font-family: 'Inter', sans-serif;
     font-weight: 400;
   }
-  .pricing .alt {
-    color: var(--text-muted);
-    font-size: 13px;
-    margin-top: 10px;
+  .pricing .alt { color: var(--text-muted); font-size: 13px; margin-top: 10px; }
+
+  /* ---------- closing ---------- */
+  .closing {
+    text-align: center;
+    padding: 96px 0 112px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
+  .closing .tagline {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(26px, 5vw, 36px);
+    line-height: 1.3;
+    max-width: 480px;
+  }
+
   /* ---------- footer ---------- */
   footer {
     position: relative;
     z-index: 1;
     border-top: 0.5px solid var(--hairline);
-    margin-top: 64px;
     padding: 32px 24px 48px;
     text-align: center;
     background: var(--void-deep);
@@ -198,15 +242,10 @@
     color: var(--text-muted);
     text-decoration: none;
     font-size: 13px;
-    letter-spacing: 0.005em;
     margin: 0 12px;
   }
   footer a:hover { color: var(--text-secondary); }
-  footer .fine {
-    color: var(--text-muted);
-    font-size: 13px;
-    margin-top: 16px;
-  }
+  footer .fine { color: var(--text-muted); font-size: 13px; margin-top: 16px; }
 </style>
 </head>
 <body>
@@ -215,34 +254,62 @@
 
 <main>
   <section class="hero">
-    <svg class="ring rise" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <circle cx="60" cy="60" r="56" stroke="#E5BA6E" stroke-width="3"/>
-    </svg>
-    <div class="wordmark rise">Nexus</div>
-    <h1 class="rise">Become the you that already exists.</h1>
-    <p class="rise">An operating system for becoming. Your mandates, your habits, your days, held in one quiet instrument.</p>
-    <a class="cta rise" href="https://apps.apple.com/us/app/nexus-pro/id6761865566">Nexus for iPhone</a>
+    <div class="wordmark reveal">Nexus</div>
+    <h1 class="reveal">Who are you becoming?</h1>
+    <p class="sub reveal">You answer out loud. Nexus builds itself around your answer.</p>
+    <a class="cta reveal" href="https://apps.apple.com/us/app/nexus-pro/id6761865566">Nexus for iPhone</a>
   </section>
 
-  <section class="section">
-    <div class="card">
-      <h2>Mandates</h2>
-      <p>The few sentences you refuse to live in contradiction to. You write them once. The app holds you to them.</p>
-    </div>
-    <div class="card">
-      <h2>The day</h2>
-      <p>Habits, recurring work, and your calendar in one view. Each morning, a score. A single word for how the day holds.</p>
-    </div>
-    <div class="card">
-      <h2>Voice</h2>
-      <p>Speak and it is done. A reminder set, a habit marked, an intention for the morning. In the evening, a reflection on what was intended and what happened.</p>
-    </div>
+  <section class="film reveal">
+    <video src="preview.mp4" poster="preview-poster.jpg" muted loop playsinline preload="metadata" aria-label="A 30 second capture of Nexus in use"></video>
   </section>
 
-  <section class="pricing">
+  <div class="rows">
+    <section class="row reveal">
+      <div class="row-media"><img src="still_question.jpg" alt="The Nexus eye above the question: what does the best version of you look like" loading="lazy"></div>
+      <div class="row-text">
+        <div class="label">Begin</div>
+        <h2>It starts with a question.</h2>
+        <p class="spoken">What does the best version of you look like?</p>
+        <p style="margin-top: 12px;">You speak the answer once. It becomes the first sentence of your operating system, and everything after is built from it.</p>
+      </div>
+    </section>
+
+    <section class="row reveal">
+      <div class="row-media"><img src="still_habits.jpg" alt="Today's habits in Nexus, each with its streak count" loading="lazy"></div>
+      <div class="row-text">
+        <div class="label">Momentum</div>
+        <h2>Your momentum has a shape.</h2>
+        <p>Sixty-nine days of meditation. Twenty of the mantra. Sixteen of clean eating. Every habit carries its count, and the day resolves into one score and one word.</p>
+      </div>
+    </section>
+
+    <section class="row reveal">
+      <div class="row-media"><img src="still_eye.jpg" alt="The eye listening, with a spoken reminder transcribed below it" loading="lazy"></div>
+      <div class="row-text">
+        <div class="label">Voice</div>
+        <h2>Speak. It listens. It acts.</h2>
+        <p class="spoken">Remind me to clean the garage this weekend.</p>
+        <p style="margin-top: 12px;">Said once, set before you lower the phone. An intention in the morning, a reflection at night, through the same eye.</p>
+      </div>
+    </section>
+  </div>
+
+  <section class="proof reveal">
+    <div class="label">The research</div>
+    <div class="days">66</div>
+    <p>Sixty-six days. Per Lally et al. (2010), that is when a habit becomes automatic. Nexus is built to carry you there.</p>
+  </section>
+
+  <section class="pricing reveal">
     <div class="label">Pricing</div>
     <div class="price">$14.99 <span>/ month</span></div>
     <div class="alt">or $99.99 a year. No ladders. No lifetime deals.</div>
+  </section>
+
+  <section class="closing reveal">
+    <div class="tagline">Become the you that already exists.</div>
+    <a class="cta" href="https://apps.apple.com/us/app/nexus-pro/id6761865566">Nexus for iPhone</a>
   </section>
 </main>
 
@@ -258,8 +325,7 @@
 <script>
   (function () {
     var field = document.getElementById('stars');
-    var n = 70;
-    for (var i = 0; i < n; i++) {
+    for (var i = 0; i < 70; i++) {
       var s = document.createElement('div');
       s.className = 'star';
       var size = 1.5 + Math.random() * 2;
@@ -271,6 +337,30 @@
       s.style.setProperty('--delay', (-Math.random() * 8) + 's');
       s.style.setProperty('--peak', (0.65 + Math.random() * 0.35).toFixed(2));
       field.appendChild(s);
+    }
+
+    var reveals = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      var ro = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      reveals.forEach(function (el) { ro.observe(el); });
+    } else {
+      reveals.forEach(function (el) { el.classList.add('in'); });
+    }
+
+    var vid = document.querySelector('.film video');
+    if (vid && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { vid.play().catch(function () {}); }
+          else { vid.pause(); }
+        });
+      }, { threshold: 0.4 }).observe(vid);
+    } else if (vid) {
+      vid.setAttribute('autoplay', '');
     }
   })();
 </script>
