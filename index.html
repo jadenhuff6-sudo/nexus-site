@@ -28,24 +28,30 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
-    background: var(--void);
+    background: var(--void) url('night-sky-bg.jpg') center / cover no-repeat fixed;
     color: var(--text);
     font-family: 'Inter', -apple-system, sans-serif;
     font-size: 15px;
     line-height: 22px;
     overflow-x: hidden;
   }
-  #stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
-  .star {
-    position: absolute;
-    background: #FFFFFF;
-    border-radius: 50%;
-    animation: twinkle var(--period) ease-in-out infinite;
-    animation-delay: var(--delay);
+  #bg {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 0;
+    pointer-events: none;
+    -webkit-mask-image: radial-gradient(ellipse 50% 60% at center, black 50%, transparent 80%);
+    mask-image: radial-gradient(ellipse 50% 60% at center, black 50%, transparent 80%);
   }
-  @keyframes twinkle {
-    0%, 100% { opacity: 0.45; }
-    50% { opacity: var(--peak); }
+  #scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(2,2,8,0.50) 0%, rgba(2,2,8,0.66) 40%, rgba(2,2,8,0.72) 100%);
   }
   main { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding: 0 24px; }
 
@@ -57,7 +63,6 @@
   }
   .reveal.in { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) {
-    .star { animation: none; opacity: 0.55; }
     .reveal { opacity: 1; transform: none; transition: none; }
   }
 
@@ -250,7 +255,8 @@
 </head>
 <body>
 
-<div id="stars" aria-hidden="true"></div>
+<video id="bg" src="bg-eye.mp4" poster="bg-eye-poster.jpg" autoplay muted loop playsinline aria-hidden="true"></video>
+<div id="scrim" aria-hidden="true"></div>
 
 <main>
   <section class="hero">
@@ -324,19 +330,10 @@
 
 <script>
   (function () {
-    var field = document.getElementById('stars');
-    for (var i = 0; i < 70; i++) {
-      var s = document.createElement('div');
-      s.className = 'star';
-      var size = 1.5 + Math.random() * 2;
-      s.style.width = size + 'px';
-      s.style.height = size + 'px';
-      s.style.left = Math.random() * 100 + '%';
-      s.style.top = Math.random() * 100 + '%';
-      s.style.setProperty('--period', (4.5 + Math.random() * 6.5) + 's');
-      s.style.setProperty('--delay', (-Math.random() * 8) + 's');
-      s.style.setProperty('--peak', (0.65 + Math.random() * 0.35).toFixed(2));
-      field.appendChild(s);
+    var bg = document.getElementById('bg');
+    if (bg && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      bg.removeAttribute('autoplay');
+      bg.pause();
     }
 
     var reveals = document.querySelectorAll('.reveal');
